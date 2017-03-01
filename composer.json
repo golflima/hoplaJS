@@ -1,0 +1,35 @@
+{
+    "name": "golflima/hoplaJS",
+    "description": "A PHP web application runnig JavaScript code stored in URLs on client-side",
+    "license": "AGPL-3.0",
+    "authors": [
+        {
+            "name": "Jérémy WALTHER",
+            "email": "jeremy.walther@golflima.net",
+            "homepage": "https://jeremywalther.fr",
+            "role": "Developer"
+        }
+    ],
+    "type": "project",
+    "support": {
+        "docs": "https://github.com/golflima/hoplaJS",
+        "issues": "https://github.com/golflima/hoplaJS/issues",
+        "source": "https://github.com/golflima/hoplaJS"
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "patchwork/jsqueeze": "~2.0",
+        "silex/silex": "~2.0",
+        "symfony/twig-bridge": "~2.8|3.0.*",
+        "twig/twig": "~2.0"
+    },
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "scripts": {
+        "run": [
+            "echo 'Started web server on http://localhost:8080'",
+            "php -S localhost:8080 -t web"
+        ]
+    }
+}
