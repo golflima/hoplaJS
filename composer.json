@@ -1,6 +1,6 @@
 {
     "name": "golflima/hoplaJS",
-    "description": "A PHP web application runnig JavaScript code stored in URLs on client-side",
+    "description": "A PHP web application running JavaScript code stored in URLs on client-side",
     "license": "AGPL-3.0",
     "authors": [
         {

@@ -1,6 +1,6 @@
 # hoplaJS
 
-> A PHP web application runnig JavaScript code stored in URLs on client-side
+> A PHP web application running JavaScript code stored in URLs on client-side
 
 ## License
 
