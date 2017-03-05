@@ -14,8 +14,8 @@
 // Get execution environment of HoplaJS
 // It should always be 'prod' (set in web/.htaccess), but when contributing or debugging HoplaJS you should set it to 'dev'
 defined('APP_ENV') || define('APP_ENV', (getenv('APP_ENV') ? getenv('APP_ENV') : 'prod'));
-getenv('APP_ENV') == 'dev' && Symfony\Component\Debug\Debug::enable();
-getenv('APP_ENV') == 'prod' && ini_set('display_errors', 0);
+APP_ENV == 'dev' && Symfony\Component\Debug\Debug::enable();
+APP_ENV == 'prod' && ini_set('display_errors', 0);
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -26,6 +26,6 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     "twig.path" => __DIR__.'/Views',
     'twig.options' => array('cache' => __DIR__.'/../var/cache/twig', 'strict_variables' => true)
 ));
-require __DIR__.'/config/'.(getenv('APP_ENV') == 'prod' ? 'prod' : 'dev').'.php';
+require __DIR__.'/config/'.(APP_ENV == 'prod' ? 'prod' : 'dev').'.php';
 require __DIR__.'/routes.php';
 $app->run();
