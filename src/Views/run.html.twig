@@ -1,0 +1,26 @@
+{% extends "layout.html.twig" %}
+
+{% block comment %}
+    This content is not hosted by <{{ request.httpHost }}{{ request.basePath }}> but is generated from data sent in URL after: 
+        <{{ request.schemeAndHttpHost }}{{ request.basePath }}/run/>
+    To edit this content, go to this page:
+        <{{ request.schemeAndHttpHost }}{{ request.basePath }}/edit/{{ data }}>
+
+    This content hash is: {{ script.hash }} (Warning: other contents may have the same hash)
+{% endblock %}
+
+{% block title %}Run: {{ script.hash }}{% endblock %}
+
+{% block head %}
+        <!-- {{ script.dependencies }} -->
+        {% for dependency in script.dependencies %}
+        <script type="text/javascript" src="{{ dependency|raw }}"></script>
+        {% endfor %}
+        <script type="text/javascript">
+            {{ script.javascript|raw }}
+        </script>
+{% endblock %}
+        
+{% block body %}
+        {{ script.htmlBody|raw }}
+{% endblock %}

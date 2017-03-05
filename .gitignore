@@ -1,3 +1,4 @@
-cache/*
-logs/*
+var/cache/profiler/*
+var/cache/twig/*
+var/logs/*
 vendor/*

@@ -1,0 +1,16 @@
+SetEnv APP_ENV dev
+
+# supress php errors
+php_flag display_startup_errors off
+php_flag display_errors off
+php_flag html_errors off
+# enable PHP error logging
+php_flag  log_errors on
+php_value error_log  /../PHP_errors.log
+
+<IfModule mod_rewrite>
+    Options -MultiViews
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</ IfModule>

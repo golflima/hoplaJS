@@ -10,5 +10,3 @@
  * file that was distributed with this source code.
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
-
-require_once __DIR__.'/../src/bootstrap.php';

@@ -1,6 +1,7 @@
 {
     "name": "golflima/hoplaJS",
-    "description": "A PHP web application running JavaScript code stored in URLs on client-side",
+    "version": "0.0.1",
+    "description": "hoplaJS - A PHP web application running JavaScript code stored in URLs on client-side",
     "license": "AGPL-3.0",
     "authors": [
         {
@@ -18,13 +19,15 @@
     },
     "require": {
         "php": ">=7.0.0",
-        "patchwork/jsqueeze": "~2.0",
         "silex/silex": "~2.0",
-        "symfony/twig-bridge": "~2.8|3.0.*",
-        "twig/twig": "~2.0"
+        "silex/web-profiler": "~2.0",
+        "symfony/asset": "~2.8|3.0.*",
+        "symfony/monolog-bridge": "~2.8|3.0.*",
+        "symfony/twig-bridge": "~2.8|3.0.*"
     },
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": { "": "src/" },
+        "psr-4": { "HoplaJs\\": "src/" }
     },
     "scripts": {
         "run": [

@@ -1,6 +1,4 @@
-<?php
-
-/*
+/*!
  * This file is part of hoplaJS.
  * See: <https://github.com/golflima/hoplaJS>.
  *
@@ -10,15 +8,15 @@
  * file that was distributed with this source code.
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
+ 
+body {
+    padding-top: 70px;
+    padding-bottom: 30px;
+}
 
-ini_set('display_errors', 0);
+.font-code { font-family: Consolas, Lucida Console, monospace; }
 
-$loader = require_once __DIR__.'/../vendor/autoload.php';
-$loader->add("app", dirname(__DIR__));
-
-$app = new Silex\Application();
-// require __DIR__.'/../config/prod.php';
-// require __DIR__.'/../app/controllers.php';
-$app->run();
-
-return $app;
+.fit-col-sm {
+  padding-left: 15px;
+  padding-right: 15px;
+}

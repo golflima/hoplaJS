@@ -1,0 +1,124 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Edit{% endblock %}
+
+{% block head %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/site.css') }}" />
+        <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/site.js') }}"></script>
+        <script type="text/javascript">
+            var baseUrl = '{{ request.schemeAndHttpHost }}{{ request.basePath }}';
+        </script>
+{% endblock %}
+
+{% block body %}
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">HoplaJS</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#new">New</a></li>
+                    <li><a href="#edit">Edit</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="https://github.com/golflima/hoplaJS" target="_blank">Get hoplaJS</a></li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container theme-showcase" role="main">
+            <div class="page-header">
+                <h1>
+                    HoplaJS
+                    <small>Write JavaScript and store it in URL. Then, share it and run your scripts everywhere !</small>
+                </h1>
+            </div>
+            
+            <div class="panel panel-primary">
+                <div class="panel-heading">New HoplaJS script <span class="urlHash"></span></div>
+                <div class="panel-body">
+                    <form class="form">
+                        <fieldset>
+                            <textarea class="form-control font-code" rows="10" id="javascript" placeholder="Enter the JavaScript script to execute here">{{ script.javascript }}</textarea><br />
+                            <textarea class="form-control font-code" rows="2" id="dependencies" placeholder="(Optional) Enter all scripts required by the JavaScript script above to run, one URL per line">{{ dependencies }}</textarea><br />
+                            <textarea class="form-control font-code" rows="2" id="htmlBody" placeholder="(Optional) Enter the HTML code to place inside the <body></body> element, if the JavaScript script above needs it">{{ script.htmlBody }}</textarea><br />
+                            <div class="checkbox disabled">
+                                <label>
+                                    <input type="checkbox" id="convertJsToTs" value="y" disabled/>
+                                    Compile JavaScript into TypeScript <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
+                                </label>
+                            </div>
+                            <div class="checkbox disabled">
+                                <label>
+                                    <input type="checkbox" id="minifyJs" value="y" disabled/>
+                                    Minify JavaScript <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
+                                </label>
+                            </div>
+                            <div class="checkbox disabled">
+                                <label>
+                                    <input type="checkbox" id="minifyHtmlBody" value="y" disabled/>
+                                    Minify HTML Body <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
+                                </label>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-sm-12"><button type="button" class="btn btn-primary form-control onclick-generate">Generate the HoplaJS URLs for this script !</button></div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <br />
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="urlEdit" class="col-sm-1 control-label"><abbr title="The URL you'll use to update your HoplaJS script later">Edit URL</abbr></label>
+                            <div class="col-sm-9"><input class="form-control font-code" type="text" id="urlEdit" placeholder="Nothing generated yet…" readonly/></div>
+                            <div class="col-sm-1"><button type="button" class="btn btn-primary form-control onclick-copy">Copy</button></div>
+                            <div class="col-sm-1"><button type="button" class="btn btn-default form-control onclick-test">Test</button></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="urlRaw" class="col-sm-1 control-label"><abbr title="The URL to get your HoplaJS script as a JavaScript file">Raw URL</abbr></label>
+                            <div class="col-sm-9"><input class="form-control font-code" type="text" id="urlRaw" placeholder="Nothing generated yet…" readonly/></div>
+                            <div class="col-sm-1"><button type="button" class="btn btn-primary form-control onclick-copy">Copy</button></div>
+                            <div class="col-sm-1"><button type="button" class="btn btn-default form-control onclick-test">Test</button></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="urlRun" class="col-sm-1 control-label"><abbr title="The URL to run your HoplaJS script">Run URL</abbr></label>
+                            <div class="col-sm-9"><input class="form-control font-code" type="text" id="urlRun" placeholder="Nothing generated yet…" readonly/></div>
+                            <div class="col-sm-1"><button type="button" class="btn btn-primary form-control onclick-copy">Copy</button></div>
+                            <div class="col-sm-1"><button type="button" class="btn btn-default form-control onclick-test">Test</button></div>
+                        </div>
+                        <div class="form-group">
+                            <p class="col-sm-1 text-right"><strong><abbr title="If the URL is too long, it may not be callable from every browsers">URL size</abbr></strong></p>
+                            <div class="col-sm-9 fit-col-sm">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" style="width: 0%" id="urlSizeProgress1"></div>
+                                    <div class="progress-bar progress-bar-warning" style="width: 0%" id="urlSizeProgress2"></div>
+                                    <div class="progress-bar progress-bar-danger"  style="width: 0%" id="urlSizeProgress3"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 fit-col-sm text-center font-code"><p class="bg-success" id="urlSize">0</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page-header">
+                <h1>About</h1>
+            </div>
+             <div class="well">
+                 <p><a href="https://github.com/golflima/hoplaJS" target="_blank">HoplaJS, v{{ app.hoplaJS_version }}</a>,
+                 distributed under the terms of <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank">GNU AGPL v3.0</a> licence.</p>
+                 <p>All generated content by users is not stored nor hosted on <a href="{{ request.schemeAndHttpHost }}{{ request.basePath }}">{{ request.httpHost }}{{ request.basePath }}</a>, everything is decoded from URL.</p>
+             </div>
+        </div>
+{% endblock %}
