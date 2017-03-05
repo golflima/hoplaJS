@@ -1,4 +1,4 @@
-SetEnv APP_ENV dev
+SetEnv APP_ENV prod
 
 # supress php errors
 php_flag display_startup_errors off
