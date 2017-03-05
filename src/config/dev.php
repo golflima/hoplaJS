@@ -11,10 +11,13 @@
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
 
+//Symfony\Component\Debug\Debug::enable(); //Commented due to a bug in Synfony Twig Extensions ... 
 $app['debug'] = true;
+
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => __DIR__.'/../../var/logs/hoplajs_dev.log',
 ));
+
 $app->register(new Silex\Provider\HttpFragmentServiceProvider());
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new Silex\Provider\WebProfilerServiceProvider(), array(

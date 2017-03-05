@@ -14,8 +14,6 @@
 // Get execution environment of HoplaJS
 // It should always be 'prod' (set in web/.htaccess), but when contributing or debugging HoplaJS you should set it to 'dev'
 defined('APP_ENV') || define('APP_ENV', (getenv('APP_ENV') ? getenv('APP_ENV') : 'prod'));
-APP_ENV == 'dev' && Symfony\Component\Debug\Debug::enable();
-APP_ENV == 'prod' && ini_set('display_errors', 0);
 
 require_once __DIR__.'/../vendor/autoload.php';
 

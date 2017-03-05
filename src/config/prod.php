@@ -10,3 +10,5 @@
  * file that was distributed with this source code.
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
+
+ini_set('display_errors', 0);

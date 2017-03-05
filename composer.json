@@ -20,10 +20,13 @@
     "require": {
         "php": ">=7.0.0",
         "silex/silex": "~2.0",
-        "silex/web-profiler": "~2.0",
         "symfony/asset": "~2.8|3.0.*",
-        "symfony/monolog-bridge": "~2.8|3.0.*",
         "symfony/twig-bridge": "~2.8|3.0.*"
+    },
+    "require-dev": {
+        "silex/web-profiler": "~2.0",
+        "symfony/debug": "~2.8|3.0.*",
+        "symfony/monolog-bridge": "~2.8|3.0.*"
     },
     "autoload": {
         "psr-0": { "": "src/" },
@@ -31,8 +34,16 @@
     },
     "scripts": {
         "run": [
-            "echo 'Started web server on http://localhost:8080'",
+            "echo 'Started web server on http://localhost:8080, in PROD mode'",
             "php -S localhost:8080 -t web"
+        ],
+        "run-dev": [
+            "echo 'Started web server on http://localhost:8080, in DEV mode'",
+            "APP_ENV=dev php -S localhost:8080 -t web"
+        ],
+        "cmd-dev": [
+            "echo 'Started web server on http://localhost:8080, in DEV mode'",
+            "cmd /V /C \"set APP_ENV=dev&& php -S localhost:8080 -t web\""
         ]
     }
 }

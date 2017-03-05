@@ -14,7 +14,6 @@
 {% block title %}Run: {{ script.hash }}{% endblock %}
 
 {% block head %}
-        <!-- {{ script.dependencies }} -->
         {% for dependency in script.dependencies %}
         <script type="text/javascript" src="{{ dependency|raw }}"></script>
         {% endfor %}
