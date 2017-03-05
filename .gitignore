@@ -1,5 +1,6 @@
 composer.phar
-var/cache/profiler/*
-var/cache/twig/*
+var/cache/**
+!var/cache/**/
 var/logs/*
 vendor/*
+!.gitkeep
