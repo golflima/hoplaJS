@@ -1,3 +1,4 @@
+composer.phar
 var/cache/profiler/*
 var/cache/twig/*
 var/logs/*
