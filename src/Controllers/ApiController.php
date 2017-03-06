@@ -15,8 +15,9 @@ namespace HoplaJs\Controllers;
 
 use HoplaJs\Models\HoplaJsScript;
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiController
 {
@@ -37,6 +38,18 @@ class ApiController
             'baseUrl' => $request->getSchemeAndHttpHost().$request->getBasePath()));
     }
 
-    // TODO : add "proxy"
-    // TODO : add "json"
+    public function proxy(Application $app, Request $request, $url, $contentType)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $request->headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        list($responseHeaders, $responseContent) = preg_split('/(\r\n){2}/', $response, 2);
+        if (!is_null($contentType)) {
+            $responseHeaders['Content-type'] = $contentType;
+        }
+        return new Response($responseContent, 200, $responseHeaders);
+    }
 }
