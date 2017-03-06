@@ -108,4 +108,7 @@ $(document).ready(function(){
         $('#proxyUrl').val(baseUrl + '/api/proxy/' + base64_encode($('#proxyUrlRaw').val()) + 
             ($('#proxyUrlContentType').val() != '' ? '/' + base64_encode($('#proxyUrlContentType').val()) : ''));
     });
+    $('#proxyUrlContentType').change(function() {
+        $('#proxyUrlRaw').change();
+    });
 });

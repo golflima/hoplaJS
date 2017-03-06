@@ -44,20 +44,27 @@ class ApiController
         $contentType = base64_decode(str_pad(strtr($contentType, '-_', '+/'), strlen($contentType) % 4, '=', STR_PAD_RIGHT));
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $request->headers);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, $request->headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
-        curl_close($ch);
         if($response === FALSE) {
-            return new JsonResponse(array(
+            $response = new JsonResponse(array(
                 'cURL error code' => curl_errno($ch),
                 'cURL error message' => curl_error($ch),
                 'url' => $url,
                 'contentType' => $contentType,
                 'headers' => $request->headers
             ), 404);
+            curl_close($ch);
+            return $response;
         }
-        list($responseHeaders, $responseContent) = preg_split('/(\r\n){2}/', $response, 2);
+        curl_close($ch);
+        list($responseHeadersTmp, $responseContent) = preg_split('/(\r\n){2}/', $response, 2);
+        $responseHeadersTmp = preg_split('/(\r\n){1}/', $responseHeadersTmp);
+        $responseHeaders = array();
+        foreach ($responseHeadersTmp as $name => $value) {
+            $responseHeaders[$name] = $value;
+        }
         if ($contentType != "") {
             $responseHeaders['Content-type'] = $contentType;
         }
