@@ -111,6 +111,26 @@
                     </div>
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">HoplaJS proxy for external resources</div>
+                <div class="panel-body">
+                    <form class="form form-horizontal">
+                        <div class="form-group">
+                            <label for="proxyUrlRaw" class="col-sm-1 control-label"><abbr title="The external resource URL to use on {{ request.httpHost }}{{ request.basePath }} (for Cross-Domain issues)">URL</abbr></label>
+                            <div class="col-sm-5"><input class="form-control font-code" type="text" id="proxyUrlRaw" placeholder="Type here an URL to an external resource" /></div>
+                            <label for="proxyUrlContentType" class="col-sm-2 control-label"><abbr title="The content type expected for the resource (for strict MIME checking issues)">Content-type</abbr></label>
+                            <div class="col-sm-4"><input class="form-control font-code" type="text" id="proxyUrlContentType" placeholder="(Optional) Content-type expected" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="proxyUrl" class="col-sm-1 control-label"><abbr title="The URL to use in your script to prevent issues">Proxy</abbr></label>
+                            <div class="col-sm-9"><input class="form-control font-code" type="text" id="proxyUrl" placeholder="The Proxy URL to the requested resource will appear here…" readonly/></div>
+                            <div class="col-sm-1"><button type="button" class="btn btn-primary form-control onclick-copy">Copy</button></div>
+                            <div class="col-sm-1"><button type="button" class="btn btn-default form-control onclick-test">Test</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             
             <div class="page-header">
                 <h1>About</h1>

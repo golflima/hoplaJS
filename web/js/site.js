@@ -16,6 +16,10 @@
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
 
+function base64_encode(text) {
+    return window.btoa(unescape(encodeURIComponent(text))).replace('+', '-').replace('/', '_').replace('=', '');
+}
+
 $(document).ready(function(){
     // Init 'Generate the HoplaJS URLs for this script !' button ...
     $('.onclick-generate').click(function() {
@@ -67,7 +71,7 @@ $(document).ready(function(){
 
     // Init 'Copy' buttons ...
     $('.onclick-copy').click(function() {
-        var toCopy = $(this).parent().parent().find('input').attr('id');
+        var toCopy = $(this).parent().parent().find('input:last').attr('id');
         document.getElementById(toCopy).select();
         var copied;
         try {
@@ -90,12 +94,18 @@ $(document).ready(function(){
 
     // Init 'Test' buttons ...
     $('.onclick-test').click(function() {
-        var url = $(this).parent().parent().find('input').val();
+        var url = $(this).parent().parent().find('input:last').val();
         var opened = window.open(url, '_blank');
         if (opened) {
             opened.focus();
         } else {
             alert('Please allow popups for this website.');
         }
+    });
+
+    // Init ToolBox - Proxy
+    $('#proxyUrlRaw').change(function() {
+        $('#proxyUrl').val(baseUrl + '/api/proxy/' + base64_encode($('#proxyUrlRaw').val()) + 
+            ($('#proxyUrlContentType').val() != '' ? '/' + base64_encode($('#proxyUrlContentType').val()) : ''));
     });
 });
