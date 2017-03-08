@@ -43,12 +43,18 @@ class ApiController
         // Decode parameters (b64 to prevent web server to think these calls are for files ...)
         $url = base64_decode(str_pad(strtr($url, '-_', '+/'), strlen($url) % 4, '=', STR_PAD_RIGHT));
         $contentType = base64_decode(str_pad(strtr($contentType, '-_', '+/'), strlen($contentType) % 4, '=', STR_PAD_RIGHT));
+        // Get request headers
+        $requestHeaders = array_map(function($value) {
+            return trim(ucwords(strtolower(is_array($value) ? $value[0] : $value), "()- \t\r\n\f\v"));
+        }, $request->headers->all());
+        // Filter request headers
+        $requestHeaders = array_diff_key($requestHeaders, array(
+            'Host' => '', 'X-Proxy-Url' => ''
+        ));
+        $request->getClientIp() != '::1' && $requestHeaders['X-Forwarded-For'] = $request->getClientIp(); // May cause issues if used from localhost
         // Init cURL session
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, true);
-        $requestHeaders = array_map(function($value) {
-            return is_array($value) ? $value[0] : $value;
-        }, $request->headers->all());
         curl_setopt($ch, CURLOPT_HTTPHEADER, $requestHeaders);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -63,8 +69,8 @@ class ApiController
         if($response === FALSE) {
             // Handle errors
             $response = new JsonResponse(array(
-                'cURL error code' => curl_errno($ch),
-                'cURL error message' => curl_error($ch),
+                'cUrlErrorCode' => curl_errno($ch),
+                'cUrlErrorMessage' => curl_error($ch),
                 'url' => $url,
                 'contentType' => $contentType,
                 'headers' => $requestHeaders
@@ -79,12 +85,19 @@ class ApiController
         $responseHeadersTmp = preg_split('/\r\n/', $responseHeadersTmp);
         $responseHeaders = array();
         foreach ($responseHeadersTmp as $value) {
-            $header = preg_split('/:[[:blank:]]/', $value);
-            count($header) == 2 && $responseHeaders[$header[0]] = $header[1];
+            $header = preg_split('/:[[:blank:]]?/', $value, 2);
+            count($header) == 2 && $responseHeaders[trim(ucwords(strtolower($header[0]), "()- \t\r\n\f\v"))] = $header[1];
         }
-        if ($contentType != "") {
-            $responseHeaders['Content-Type'] = $contentType;
-        }
+        // Filter response headers
+        $responseHeaders = array_diff_key($responseHeaders, array(
+            'Content-Security-Policy' => '', 'Host' => '', 'Location' => '', '(Transfer-Encoding)' => '', 'X-Xss-Protection' => ''
+        ));
+        // Add specific response headers
+        $contentType != "" && $responseHeaders['Content-Type'] = $contentType;
+        $responseHeaders['Access-Control-Allow-Origin'] = $request->getSchemeAndHttpHost().$request->getBasePath();
+        $responseHeaders['Vary'] = 'Origin';
+        $responseHeaders['X-Frame-Options'] = 'SAMEORIGIN';
+        // Return the response, always with 200 OK code
         return new Response($responseContent, 200, $responseHeaders);
     }
 }
