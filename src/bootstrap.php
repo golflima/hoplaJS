@@ -24,6 +24,6 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     "twig.path" => __DIR__.'/Views',
     'twig.options' => array('cache' => __DIR__.'/../var/cache/twig', 'strict_variables' => true)
 ));
-require __DIR__.'/config/'.(APP_ENV == 'prod' ? 'prod' : 'dev').'.php';
+require __DIR__.'/config/'.(APP_ENV == 'dev' ? 'dev' : 'prod').'.php';
 require __DIR__.'/routes.php';
 $app->run();

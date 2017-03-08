@@ -15,6 +15,8 @@ $app->get('/', 'HoplaJs\\Controllers\\SiteController::edit');
 $app->post('/api/decode', 'HoplaJs\\Controllers\\ApiController::decode');
 $app->get('/api/decode/{data}', 'HoplaJs\\Controllers\\ApiController::decode');
 $app->post('/api/encode', 'HoplaJs\\Controllers\\ApiController::encode');
+$app->get('/api/proxy/{url}', 'HoplaJs\\Controllers\\ApiController::proxy');
+$app->get('/api/proxy/{url}/{contentType}', 'HoplaJs\\Controllers\\ApiController::proxy');
 $app->get('/edit', 'HoplaJs\\Controllers\\SiteController::edit');
 $app->get('/edit/{data}', 'HoplaJs\\Controllers\\SiteController::edit');
 $app->get('/raw/{data}', 'HoplaJs\\Controllers\\RunController::raw');

@@ -3,4 +3,5 @@ var/cache/**
 !var/cache/**/
 var/logs/*
 vendor/*
+web/*.log
 !.gitkeep
