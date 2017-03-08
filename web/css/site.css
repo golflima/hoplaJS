@@ -14,9 +14,15 @@ body {
     padding-bottom: 30px;
 }
 
-.font-code { font-family: Consolas, Lucida Console, monospace; }
-
 .fit-col-sm {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.font-code { 
+  font-family: Consolas, Lucida Console, monospace; 
+}
+
+label {
+  margin-bottom: 0;
 }
