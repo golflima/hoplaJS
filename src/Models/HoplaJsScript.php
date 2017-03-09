@@ -29,18 +29,19 @@ class HoplaJsScript implements \JsonSerializable
     public function jsonSerialize()
     {
         $data = array();
-        $data['j'] = $this->javascript;
-        $data['d'] = $this->dependencies;
-        $data['b'] = $this->htmlBody;
+        $this->javascript != "" && $data['j'] = $this->javascript;
+        count($this->dependencies) > 0 && $this->dependencies[0] != "" && $data['d'] = $this->dependencies;
+        $this->htmlBody != "" && $data['b'] = $this->htmlBody;
         return $data;
     }
 
     public static function jsonDeserialize($data)
     {
+        is_array($data) || $data = get_object_vars($data);
         return new self(
-            $data->j,
-            is_null($data->d) ? array() : $data->d,
-            is_null($data->b) ? array() : $data->b);
+            array_key_exists('j', $data) ? $data['j'] : '',
+            array_key_exists('d', $data) && ! is_null($data['d']) ? $data['d'] : array(),
+            array_key_exists('b', $data) ? $data['b'] : '');
     }
 
     public function serialize()
