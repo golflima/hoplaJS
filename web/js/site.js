@@ -49,11 +49,11 @@ $(document).ready(function(){
                     $('#urlSizeProgress1').css('width', urlSize * 100 / 2048 + '%');
                     $('#urlSizeProgress2').css('width', '0%');
                     $('#urlSizeProgress3').css('width', '0%');
-                } else if (urlSize <= 8192) {
-                    // URL length over 8192 won't work on Android
+                } else if (urlSize <= 8000) {
+                    // URL length over 8000 won't work on Android, and will be blocked by Apache by default
                     $('#urlSize').addClass('bg-warning');
-                    $('#urlSizeProgress1').css('width', 2047 * 100 / 8192 + '%');
-                    $('#urlSizeProgress2').css('width', (urlSize - 2048) * 100 / 8192 + '%');
+                    $('#urlSizeProgress1').css('width', 2047 * 100 / 8000 + '%');
+                    $('#urlSizeProgress2').css('width', (urlSize - 2048) * 100 / 8000 + '%');
                     $('#urlSizeProgress3').css('width', '0%');
                 }
                 else {
@@ -61,8 +61,8 @@ $(document).ready(function(){
                     // It seems Firefox and Safari are able to handle URL length over 65535
                     $('#urlSize').addClass('bg-danger');
                     $('#urlSizeProgress1').css('width', 2047 * 100 / 32779 + '%');
-                    $('#urlSizeProgress2').css('width', (8192 - 2048) * 100 / 32779 + '%');
-                    $('#urlSizeProgress3').css('width', (urlSize - 2048 - 8192) * 100 / 32779 + '%');
+                    $('#urlSizeProgress2').css('width', (8000 - 2048) * 100 / 32779 + '%');
+                    $('#urlSizeProgress3').css('width', (urlSize - 2048 - 8000) * 100 / 32779 + '%');
                 }
             },
             dataType: 'json'
