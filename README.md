@@ -21,6 +21,7 @@ Assuming [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git),
     * Development mode, on Windows: `composer cmd-dev`
   * [*Docker*](https://www.docker.com/get-docker):
     * `docker-compose up -d`
+    * Then, browse hoplaJS over [HTTP](http://localhost:8080) or [HTTPS](https://localhost:8443)
     * *If you use the docker container provided, you don't need to install Git, PHP or Composer on your computer.*
 
 ## License
