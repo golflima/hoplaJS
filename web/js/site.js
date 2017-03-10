@@ -16,16 +16,15 @@
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
 
-function base64_encode(text) {
-    return window.btoa(unescape(encodeURIComponent(text))).replace('+', '-').replace('/', '_').replace('=', '');
-}
-
 $(document).ready(function(){
     // Init 'Generate the HoplaJS URLs for this script !' button ...
     $('.onclick-generate').click(function() {
         var javascript = $('#javascript').val();
         var dependencies = $('#dependencies').val();
         var htmlBody = $('#htmlBody').val();
+        if ($('#minifyJs').is(':checked')) {
+            javascript = uglifyJs(javascript, uglifyJsDefaultOptions);
+        }
         $.ajax({
             type: "POST",
             url: baseUrl + '/api/encode',
@@ -112,3 +111,84 @@ $(document).ready(function(){
         $('#proxyUrlRaw').change();
     });
 });
+
+function base64_encode(text) {
+    return window.btoa(unescape(encodeURIComponent(text))).replace('+', '-').replace('/', '_').replace('=', '');
+}
+
+var uglifyJsDefaultOptions = {
+  parse: {
+    strict: false
+  },
+  compress: {
+    sequences     : true,
+    properties    : true,
+    dead_code     : true,
+    drop_debugger : true,
+    unsafe        : true,
+    unsafe_comps  : true,
+    conditionals  : true,
+    comparisons   : true,
+    evaluate      : true,
+    booleans      : true,
+    loops         : true,
+    unused        : true,
+    hoist_funs    : true,
+    hoist_vars    : false,
+    if_return     : true,
+    join_vars     : true,
+    cascade       : true,
+    side_effects  : true,
+    negate_iife   : true,
+    screw_ie8     : false,
+
+    warnings      : true,
+    global_defs   : {}
+  },
+  output: {
+    indent_start  : 0,
+    indent_level  : 4,
+    quote_keys    : false,
+    space_colon   : true,
+    ascii_only    : false,
+    inline_script : true,
+    width         : 80,
+    max_line_len  : 32000,
+    beautify      : false,
+    source_map    : null,
+    bracketize    : false,
+    semicolons    : true,
+    comments      : /@license|@preserve|^!/,
+    preserve_line : false,
+    screw_ie8     : false
+  }
+};
+function uglifyJs(input, options) {
+    // Create copies of the options
+	var parseOptions = defaults({}, options.parse);
+	var compressOptions = defaults({}, options.compress);
+	var outputOptions = defaults({}, options.output);
+
+	parseOptions = defaults(parseOptions, uglifyJsDefaultOptions.parse, true);
+	compressOptions = defaults(compressOptions, uglifyJsDefaultOptions.compress, true);
+	outputOptions = defaults(outputOptions, uglifyJsDefaultOptions.output, true);
+
+	// 1. Parse
+	var topLevelAst = parse(input, parseOptions);
+	topLevelAst.figure_out_scope();
+
+	// 2. Compress
+	var compressor = new Compressor(compressOptions);
+	var compressedAst = topLevelAst.transform(compressor);
+
+	// 3. Mangle
+	compressedAst.figure_out_scope();
+	compressedAst.compute_char_frequency();
+	compressedAst.mangle_names();
+
+	// 4. Generate output
+	output = compressedAst.print_to_string(outputOptions);
+    console.log('uglifyJs: ', output);
+
+	return output;
+}

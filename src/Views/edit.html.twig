@@ -8,6 +8,13 @@
         <link rel="stylesheet" href="{{ asset('css/site.css') }}" />
         <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/uglifyjs/utils.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/uglifyjs/ast.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/uglifyjs/parse.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/uglifyjs/transform.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/uglifyjs/scope.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/uglifyjs/output.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/uglifyjs/compress.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/site.js') }}"></script>
         <script type="text/javascript">
             var baseUrl = '{{ request.schemeAndHttpHost }}{{ request.basePath }}';
@@ -57,12 +64,12 @@
                             <div class="checkbox disabled">
                                 <label>
                                     <input type="checkbox" id="convertJsToTs" value="y" disabled/>
-                                    Compile JavaScript into TypeScript <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
+                                    Compile TypeScript into JavaScript <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
                                 </label>
                             </div>
-                            <div class="checkbox disabled">
+                            <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="minifyJs" value="y" disabled/>
+                                    <input type="checkbox" id="minifyJs" value="y" />
                                     Minify JavaScript <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
                                 </label>
                             </div>
