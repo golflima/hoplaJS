@@ -19,6 +19,9 @@ Assuming [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git),
     * Production mode: `composer run`
     * Development mode, on Linux: `composer run-dev`
     * Development mode, on Windows: `composer cmd-dev`
+  * [*Docker*](https://www.docker.com/get-docker):
+    * `docker-compose up -d`
+    * *If you use the docker container provided, you don't need to install Git, PHP or Composer on your computer.*
 
 ## License
 
