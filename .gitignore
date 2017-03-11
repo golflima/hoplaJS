@@ -3,5 +3,6 @@ var/cache/**
 !var/cache/**/
 var/logs/*
 vendor/*
+web/.htaccess
 web/*.log
 !.gitkeep

@@ -8,6 +8,8 @@ configure_vhost /etc/apache2/sites-available/site.conf
 a2dissite 000-default && a2ensite site.conf && a2enmod rewrite && a2enmod ssl
 # Run Composer if necessary
 [[ -e '/var/www/docker/vendor/autoload.php' ]] || composer install --no-interaction
+# Copy .htaccess if necessary
+[[ -e '/var/www/docker/web/.htaccess' ]] || cp /var/www/docker/setup/apache/.htaccess /var/www/docker/web/.htaccess
 # Apache gets grumpy about PID files pre-existing
 rm -f /var/run/apache2/apache2.pid
 # Apache log direcotry
