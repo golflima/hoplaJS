@@ -1,0 +1,15 @@
+{
+  "name": "golflima-hoplajs",
+  "homepage": "https://github.com/golflima/hoplaJS",
+  "authors": [
+    "Jérémy WALTHER <jeremy.walther@golflima.net>"
+  ],
+  "description": "hoplaJS - A PHP web application running JavaScript code stored in URLs on client-side",
+  "license": "AGPL-3.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "uglifyjs2": "https://github.com/mishoo/UglifyJS2.git#2.8.12"
+  }
+}

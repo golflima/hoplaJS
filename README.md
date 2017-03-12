@@ -5,8 +5,8 @@
 ## Installation
 
 Assuming [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git),
-[PHP](http://php.net/manual/en/install.php) and
-[Composer](https://getcomposer.org/download/) are already installed on your server :
+[PHP](http://php.net/manual/en/install.php),
+[Composer](https://getcomposer.org/download/) and
 
 * [Clone](https://github.com/golflima/hoplaJS.git) or [download](https://github.com/golflima/hoplaJS/archive/master.zip) HoplaJS on your server
 * Run `composer install --no-dev`
@@ -23,6 +23,15 @@ Assuming [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git),
     * `docker-compose up -d`
     * Then, browse hoplaJS over [HTTP](http://localhost:8080) or [HTTPS](https://localhost:8443)
     * *If you use the docker container provided, you don't need to install Git, PHP or Composer on your computer.*
+
+## Contribute
+
+If you want to contribute to this project, you'll need some additionnal things:
+
+* Install [npm](https://docs.npmjs.com/getting-started/installing-node)
+* Run `npm install bower gulp gulp-clean-css gulp-concat gulp-rename gulp-sourcemaps gulp-uglify --save-dev`
+* To update front-end dependences, run `bower update` (ou may need to edit the file `bower.json`)
+* To bundle all front-end resources, run `gulp`
 
 ## License
 
