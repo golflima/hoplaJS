@@ -78,16 +78,8 @@ $(document).ready(function(){
         } catch (ex) {
             copied = false;  
         }
-        if (copied) {
-            $(this)
-                .removeClass('btn-primary').addClass('btn-success')
-                .delay(1000)
-                .removeClass('btn-success').addClass('btn-primary');
-        } else {
-            $(this)
-                .removeClass('btn-primary').addClass('btn-danger')
-                .delay(1000)
-                .removeClass('btn-danger').addClass('btn-primary');
+        if (!copied) {
+            alert('Sorry, your browser doesn\'t support copying to clipboard.');
         }
     });
 
