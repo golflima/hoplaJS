@@ -40,7 +40,7 @@ gulp.task('js', function() {
         .pipe(concat('site.js'))
         .pipe(gulp.dest(assets + '/js'))
         .pipe(rename('site.min.js'))
-        .pipe(uglify())
+        .pipe(uglify({preserveComments: 'license'}))
         .pipe(sourcemaps.write(maps))
         .pipe(gulp.dest(assets + '/js'));
 });
