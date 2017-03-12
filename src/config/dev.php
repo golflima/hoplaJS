@@ -15,7 +15,9 @@
 $app['debug'] = true;
 
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
-    'monolog.logfile' => __DIR__.'/../../var/logs/hoplajs_dev.log',
+    'monolog.level' => Monolog\Logger::DEBUG,
+    'monolog.logfile' => __DIR__.'/../../var/logs/hoplajs-dev.log',
+    'monolog.name' => 'hoplaJS'
 ));
 
 $app->register(new Silex\Provider\HttpFragmentServiceProvider());

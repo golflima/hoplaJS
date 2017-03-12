@@ -12,3 +12,8 @@
  */
 
 ini_set('display_errors', 0);
+$app->register(new Silex\Provider\MonologServiceProvider(), array(
+    'monolog.level' => Monolog\Logger::INFO,
+    'monolog.logfile' => __DIR__.'/../../var/logs/hoplajs-prod.log',
+    'monolog.name' => 'hoplaJS'
+));

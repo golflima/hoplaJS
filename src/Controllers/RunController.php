@@ -22,12 +22,14 @@ class RunController
 {
     public function raw(Application $app, Request $request, $data)
     {
+        $script = HoplaJsScript::deserialize($data);
+        $app['monolog']->info('"/raw" called by IP: "'.$request->getClientIp().'" to read application hash: "'.$script->getHash().'".');
         return new Response($app['twig']->render(
             'raw.js.twig',
             array(
                 'request' => $request,
                 'data' => $data,
-                'script' => HoplaJsScript::deserialize($data))),
+                'script' => $script)),
             200,
             array(
                 'Content-Type' => 'text/javascript'
@@ -36,9 +38,11 @@ class RunController
 
     public function run(Application $app, Request $request, $data)
     {
+        $script = HoplaJsScript::deserialize($data);
+        $app['monolog']->info('"/run" called by IP: "'.$request->getClientIp().'" to read application hash: "'.$script->getHash().'".');
         return $app['twig']->render('run.html.twig', array(
             'request' => $request,
             'data' => $data,
-            'script' => HoplaJsScript::deserialize($data)));
+            'script' => $script));
     }
 }
