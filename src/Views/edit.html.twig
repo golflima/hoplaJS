@@ -3,8 +3,8 @@
 {% block title %}Edit{% endblock %}
 
 {% block head %}
-        <link rel="stylesheet" href="{{ app.debug ? asset('assets/site.css') : asset('assets/site.min.css') }}" />
-        <script type="text/javascript" src="{{ app.debug ? asset('assets/site.js') : asset('assets/site.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ app.debug ? asset('assets/css/site.css') : asset('assets/css/site.min.css') }}" />
+        <script type="text/javascript" src="{{ app.debug ? asset('assets/js/site.js') : asset('assets/js/site.min.js') }}"></script>
         <script type="text/javascript">
             var baseUrl = '{{ request.schemeAndHttpHost }}{{ request.basePath }}';
         </script>

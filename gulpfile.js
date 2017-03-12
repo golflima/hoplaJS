@@ -6,7 +6,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 
 var assets = './web/assets';
-var maps = 'maps';
+var maps = '../maps';
 
 gulp.task('css', function() {  
     return gulp.src([
@@ -16,11 +16,11 @@ gulp.task('css', function() {
         ])
         .pipe(sourcemaps.init())
         .pipe(concat('site.css'))
-        .pipe(gulp.dest(assets))
+        .pipe(gulp.dest(assets + '/css'))
         .pipe(rename('site.min.css'))
         .pipe(cleanCss())
         .pipe(sourcemaps.write(maps))
-        .pipe(gulp.dest(assets));
+        .pipe(gulp.dest(assets + '/css'));
 });
 
 gulp.task('js', function() {  
@@ -38,11 +38,16 @@ gulp.task('js', function() {
         ])
         .pipe(sourcemaps.init())
         .pipe(concat('site.js'))
-        .pipe(gulp.dest(assets))
+        .pipe(gulp.dest(assets + '/js'))
         .pipe(rename('site.min.js'))
         .pipe(uglify())
         .pipe(sourcemaps.write(maps))
-        .pipe(gulp.dest(assets));
+        .pipe(gulp.dest(assets + '/js'));
 });
 
-gulp.task('default', ['css', 'js']);
+gulp.task('fonts', function() {  
+    return gulp.src('./res/vendor/bootstrap/dist/fonts/**')
+        .pipe(gulp.dest(assets + '/fonts'));
+});
+
+gulp.task('default', ['css', 'js', 'fonts']);
