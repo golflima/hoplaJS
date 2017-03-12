@@ -4,10 +4,6 @@
 
 {% block head %}
         <link rel="stylesheet" href="{{ app.debug ? asset('assets/css/site.css') : asset('assets/css/site.min.css') }}" />
-        <script type="text/javascript" src="{{ app.debug ? asset('assets/js/site.js') : asset('assets/js/site.min.js') }}"></script>
-        <script type="text/javascript">
-            var baseUrl = '{{ request.schemeAndHttpHost }}{{ request.basePath }}';
-        </script>
 {% endblock %}
 
 {% block body %}
@@ -172,4 +168,8 @@
                  <p>All generated content by users is not stored nor hosted on <a href="{{ request.schemeAndHttpHost }}{{ request.basePath }}">{{ request.httpHost }}{{ request.basePath }}</a>, everything is decoded from URL.</p>
              </div>
         </div>
+        <script type="text/javascript" src="{{ app.debug ? asset('assets/js/site.js') : asset('assets/js/site.min.js') }}"></script>
+        <script type="text/javascript">
+            var baseUrl = '{{ request.schemeAndHttpHost }}{{ request.basePath }}';
+        </script>
 {% endblock %}
