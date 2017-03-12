@@ -50,25 +50,19 @@
                                 <textarea class="form-control font-code" rows="2" id="dependencies" placeholder="(Optional) Enter all scripts required by the JavaScript script above to run, one URL per line">{{ dependencies }}</textarea><br />
                                 <label for="css">CSS style to apply:</label>
                                 <textarea class="form-control font-code" rows="2" id="css" placeholder="(Optional) Enter the CSS style to apply to the page, if the JavaScript script above needs it">{{ script.css }}</textarea><br />
-                                <label for="body">HTML body content:</label>
+                                <label for="body">HTML body content to display and manipulate:</label>
                                 <textarea class="form-control font-code" rows="2" id="body" placeholder="(Optional) Enter the HTML code to place inside the <body></body> element, if the JavaScript script above needs it">{{ script.body }}</textarea><br />
-                            </div>
-                            <div class="checkbox disabled">
-                                <label>
-                                    <input type="checkbox" id="compileJsIntoTs" value="y" disabled/>
-                                    Compile TypeScript into JavaScript <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
-                                </label>
                             </div>
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" id="minifyJs" value="y" />
-                                    Minify JavaScript <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
+                                    Minify JavaScript <small>&mdash; only when generating the URLs, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" id="minifyBody" value="y" />
-                                    Minify HTML Body <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
+                                    Minify HTML Body <small>&mdash; only when generating the URLs, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
                                 </label>
                             </div>
                             <div class="form-horizontal">
@@ -163,7 +157,7 @@
                             </ol>
                             <span class="glyphicon glyphicon-warning-sign"></span> <em>Please keep in mind that your whole HoplaJS application is stored inside the URL: if you loose it, you loose your entire application too.</em>
                             <br />
-                            <span class="glyphicon glyphicon-info-sign"></span> <em>You only need to remember either the <label for="urlRun">Run <span class="glyphicon glyphicon-link"></span></label> or the <label for="urlRaw">Raw <span class="glyphicon glyphicon-link"></span></label> URL as they both contains a link to edit back the HoplaJS application.</em>
+                            <span class="glyphicon glyphicon-info-sign"></span> <em>You only need to keep either the <label for="urlRun">Run <span class="glyphicon glyphicon-link"></span></label> or the <label for="urlRaw">Raw <span class="glyphicon glyphicon-link"></span></label> URL as they both contains a link to edit back the HoplaJS application in comments.</em>
                         </li>
                     </ol>
                 </div>

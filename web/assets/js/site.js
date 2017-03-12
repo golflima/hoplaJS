@@ -55694,11 +55694,11 @@ $(document).ready(function(){
         var dependencies = $('#dependencies').val();
         var css = $('#css').val();
         var body = $('#body').val();
-        if ($('#minifyBody').is(':checked')) {
-            body = minify(body, minifyOptions);
-        }
         if ($('#minifyJs').is(':checked')) {
             javascript = uglifyJs(javascript, uglifyJsDefaultOptions);
+        }
+        if ($('#minifyBody').is(':checked')) {
+            body = minify(body, minifyOptions);
         }
         $.ajax({
             type: "POST",
