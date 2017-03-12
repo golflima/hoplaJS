@@ -43,12 +43,19 @@
                 <div class="panel-body">
                     <form class="form">
                         <fieldset>
-                            <textarea class="form-control font-code" rows="10" id="javascript" placeholder="Enter the JavaScript script to execute here">{{ script.javascript }}</textarea><br />
-                            <textarea class="form-control font-code" rows="2" id="dependencies" placeholder="(Optional) Enter all scripts required by the JavaScript script above to run, one URL per line">{{ dependencies }}</textarea><br />
-                            <textarea class="form-control font-code" rows="2" id="htmlBody" placeholder="(Optional) Enter the HTML code to place inside the <body></body> element, if the JavaScript script above needs it">{{ script.htmlBody }}</textarea><br />
+                            <div class="form-group">
+                                <label for="javascript">JavaScript to execute:</label>
+                                <textarea class="form-control font-code" rows="10" id="javascript" placeholder="Enter the JavaScript script to execute here">{{ script.javascript }}</textarea><br />
+                                <label for="dependencies">Dependencies of JavaScript to execute:</label>
+                                <textarea class="form-control font-code" rows="2" id="dependencies" placeholder="(Optional) Enter all scripts required by the JavaScript script above to run, one URL per line">{{ dependencies }}</textarea><br />
+                                <label for="css">CSS style to apply:</label>
+                                <textarea class="form-control font-code" rows="2" id="css" placeholder="(Optional) Enter the CSS style to apply to the page, if the JavaScript script above needs it">{{ script.css }}</textarea><br />
+                                <label for="body">HTML body content:</label>
+                                <textarea class="form-control font-code" rows="2" id="body" placeholder="(Optional) Enter the HTML code to place inside the <body></body> element, if the JavaScript script above needs it">{{ script.body }}</textarea><br />
+                            </div>
                             <div class="checkbox disabled">
                                 <label>
-                                    <input type="checkbox" id="convertJsToTs" value="y" disabled/>
+                                    <input type="checkbox" id="compileJsIntoTs" value="y" disabled/>
                                     Compile TypeScript into JavaScript <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
                                 </label>
                             </div>
@@ -60,7 +67,7 @@
                             </div>
                             <div class="checkbox disabled">
                                 <label>
-                                    <input type="checkbox" id="minifyHtmlBody" value="y" disabled/>
+                                    <input type="checkbox" id="minifyBody" value="y" disabled/>
                                     Minify HTML Body <small>&mdash; only when generating the URL, won't modify your input (but be sure to keep it somewhere to easely update your HoplaJS script later)</small>
                                 </label>
                             </div>
@@ -137,7 +144,8 @@
                     <ol>
                         <li>Write the JavaScript to execute <label for="javascript">here</label></li>
                         <li>If your <label for="javascript">script</label> requires other JavaScript files, add them <label for="dependencies">here</label>, one URL per line</li>
-                        <li>If your <label for="javascript">script</label> requires specific HTML content (inside <code>&lt;body&gt;&lt;/body&gt;</code>), add it <label for="htmlBody">here</label></li>
+                        <li>If your <label for="javascript">script</label> requires specific CSS style (inside <code>&lt;head&gt;&lt;style&gt;&lt;/style&gt;&lt;/head&gt;</code>), add it <label for="css">here</label></li>
+                        <li>If your <label for="javascript">script</label> requires specific HTML content (inside <code>&lt;body&gt;&lt;/body&gt;</code>), add it <label for="body">here</label></li>
                         <li>When everything is ready, you can push the button <span class="label label-primary"><span class="glyphicon glyphicon-play"></span> Generate the HoplaJS URLs for this script !</span></li>
                         <li>As soon as URLs are generated, you'll see a gauge to measure it's size
                             <ol>
@@ -154,6 +162,8 @@
                                 <li><label for="urlEdit">Edit <span class="glyphicon glyphicon-link"></span></label> is the URL to edit your application, it will display HolpaJS edit form with prefilled fields</li>
                             </ol>
                             <span class="glyphicon glyphicon-warning-sign"></span> <em>Please keep in mind that your whole HoplaJS application is stored inside the URL: if you loose it, you loose your entire application too.</em>
+                            <br />
+                            <span class="glyphicon glyphicon-info-sign"></span> <em>You only need to remember either the <label for="urlRun">Run <span class="glyphicon glyphicon-link"></span></label> or the <label for="urlRaw">Raw <span class="glyphicon glyphicon-link"></span></label> URL as they both contains a link to edit back the HoplaJS application.</em>
                         </li>
                     </ol>
                 </div>

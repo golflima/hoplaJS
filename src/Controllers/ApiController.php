@@ -30,8 +30,9 @@ class ApiController
     {
         $javascript = $request->get('javascript');
         $dependencies = preg_split('/[\s]+/', $request->get('dependencies'));
-        $htmlBody = $request->get('htmlBody');
-        $script = new HoplaJsScript($javascript, $dependencies, $htmlBody);
+        $css = $request->get('css');
+        $body = $request->get('body');
+        $script = new HoplaJsScript($javascript, $dependencies, $css, $body);
         return new JsonResponse(array(
             'data' => $script->serialize(),
             'hash' => $script->getHash(),

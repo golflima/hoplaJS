@@ -21694,7 +21694,8 @@ $(document).ready(function(){
     $('.onclick-generate').click(function() {
         var javascript = $('#javascript').val();
         var dependencies = $('#dependencies').val();
-        var htmlBody = $('#htmlBody').val();
+        var css = $('#css').val();
+        var body = $('#body').val();
         if ($('#minifyJs').is(':checked')) {
             javascript = uglifyJs(javascript, uglifyJsDefaultOptions);
         }
@@ -21704,7 +21705,8 @@ $(document).ready(function(){
             data: {
                 javascript: javascript,
                 dependencies: dependencies,
-                htmlBody: htmlBody,
+                css: css,
+                body: body,
             },
             success: function(data) {
                 $('#urlEdit').val(data.baseUrl + '/edit/' + data.data);

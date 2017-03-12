@@ -17,21 +17,24 @@ class HoplaJsScript implements \JsonSerializable
 {
     private $javascript;
     private $dependencies;
-    private $htmlBody;
+    private $css;
+    private $body;
 
-    public function __construct($javascript = "", array $dependencies = array(), $htmlBody = "")
+    public function __construct($javascript = '', array $dependencies = array(), $css = '', $body = '')
     {
         $this->javascript = $javascript;
         $this->dependencies = $dependencies;
-        $this->htmlBody = $htmlBody;
+        $this->css = $css;
+        $this->body = $body;
     }
 
     public function jsonSerialize()
     {
         $data = array();
-        $this->javascript != "" && $data['j'] = $this->javascript;
-        count($this->dependencies) > 0 && $this->dependencies[0] != "" && $data['d'] = $this->dependencies;
-        $this->htmlBody != "" && $data['b'] = $this->htmlBody;
+        $this->javascript != '' && $data['j'] = $this->javascript;
+        count($this->dependencies) > 0 && $this->dependencies[0] != '' && $data['d'] = $this->dependencies;
+        $this->css != '' && $data['c'] = $this->css;
+        $this->body != '' && $data['b'] = $this->body;
         return $data;
     }
 
@@ -41,6 +44,7 @@ class HoplaJsScript implements \JsonSerializable
         return new self(
             array_key_exists('j', $data) ? $data['j'] : '',
             array_key_exists('d', $data) && ! is_null($data['d']) ? $data['d'] : array(),
+            array_key_exists('c', $data) ? $data['c'] : '',
             array_key_exists('b', $data) ? $data['b'] : '');
     }
 
@@ -49,7 +53,7 @@ class HoplaJsScript implements \JsonSerializable
         $serialized = json_encode($this);
         $serialized = gzcompress($serialized, 9);
         if ($serialized === FALSE) {
-            throw new \Exception("Error when compressing data."); 
+            throw new \Exception('Error when compressing data.'); 
         }
         $serialized = rtrim(strtr(base64_encode($serialized), '+/', '-_'), '=');
         return $serialized;
@@ -60,7 +64,7 @@ class HoplaJsScript implements \JsonSerializable
         $deserialized = base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
         $deserialized = gzuncompress($deserialized);
         if ($deserialized === FALSE) {
-            throw new \Exception("Error when uncompressing gzipped data.");
+            throw new \Exception('Error when uncompressing gzipped data.');
         }
         $deserialized = json_decode($deserialized);
         $deserialized = self::jsonDeserialize($deserialized);
@@ -77,9 +81,14 @@ class HoplaJsScript implements \JsonSerializable
         return $this->dependencies;
     }
 
-    public function getHtmlBody()
+    public function getCss()
     {
-        return $this->htmlBody;
+        return $this->css;
+    }
+
+    public function getBody()
+    {
+        return $this->body;
     }
 
     public function getHash()
