@@ -24,12 +24,12 @@
 {% endfor %}
  *
  * This script expects the following portion of CSS style to be present on the page:
- * {{ script.css|replace({'/' : '&#47;'}) }}
+ * {{ script.css | replace({'*/' : '*&#47;'}) | raw }}
  *
  * This script expects the following portion of HTML to be present inside the <body></body> section:
- * {{ script.body|replace({'/' : '&#47;'}) }}
+ * {{ script.body | replace({'*/' : '*&#47;'}) | raw }}
  * 
  * And finally, here is the script itself:
  */
 
-{{ script.javascript|raw }}
+{{ script.javascript | raw }}

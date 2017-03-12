@@ -16,6 +16,8 @@
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
 
+var minify = require('html-minifier').minify;
+
 $(document).ready(function(){
     // Init 'Generate the HoplaJS URLs for this script !' button ...
     $('.onclick-generate').click(function() {
@@ -23,6 +25,9 @@ $(document).ready(function(){
         var dependencies = $('#dependencies').val();
         var css = $('#css').val();
         var body = $('#body').val();
+        if ($('#minifyBody').is(':checked')) {
+            body = minify(body, minifyOptions);
+        }
         if ($('#minifyJs').is(':checked')) {
             javascript = uglifyJs(javascript, uglifyJsDefaultOptions);
         }
@@ -185,4 +190,24 @@ function uglifyJs(input, options) {
     console.log('uglifyJs: ', output);
 
 	return output;
+}
+
+var minifyOptions = {
+    collapseBooleanAttributes: true,
+    collapseWhitespace: true,
+    conservativeCollapse: true,
+    decodeEntities: true,
+    html5: true,
+    minifyCSS: true,
+    minifyJS: true,
+    processConditionalComments: true,
+    removeAttributeQuotes: true,
+    removeComments: true,
+    removeEmptyAttributes: true,
+    removeOptionalTags: true,
+    removeRedundantAttributes: true,
+    removeScriptTypeAttributes: true,
+    removeStyleLinkTypeAttributes: true,
+    trimCustomFragments: true,
+    useShortDoctype: true
 }

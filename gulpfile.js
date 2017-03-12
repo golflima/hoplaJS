@@ -27,6 +27,7 @@ gulp.task('js', function() {
     return gulp.src([
             './res/vendor/jquery/dist/jquery.js',
             './res/vendor/bootstrap/dist/js/bootstrap.js',
+            './res/vendor/html-minifier/dist/htmlminifier.js',
             './res/vendor/uglifyjs2/lib/utils.js',
             './res/vendor/uglifyjs2/lib/ast.js',
             './res/vendor/uglifyjs2/lib/parse.js',
