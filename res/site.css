@@ -1,4 +1,11 @@
 /*!
+ *   _                 _           _ ____  
+ *  | |__   ___  _ __ | | __ _    | / ___| 
+ *  | '_ \ / _ \| '_ \| |/ _` |_  | \___ \ 
+ *  | | | | (_) | |_) | | (_| | |_| |___) |
+ *  |_| |_|\___/| .__/|_|\__,_|\___/|____/ 
+ *              |_|                        
+ * 
  * This file is part of hoplaJS.
  * See: <https://github.com/golflima/hoplaJS>.
  *
@@ -14,9 +21,15 @@ body {
     padding-bottom: 30px;
 }
 
-.font-code { font-family: Consolas, Lucida Console, monospace; }
-
 .fit-col-sm {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.font-code { 
+  font-family: Consolas, Lucida Console, monospace; 
+}
+
+label {
+  margin-bottom: 0;
 }

@@ -1,0 +1,39 @@
+ServerName APACHE_SERVER_NAME
+<VirtualHost *:80>
+    ServerAdmin APACHE_SERVER_ADMIN
+    ServerName APACHE_SERVER_NAME
+    DocumentRoot /var/www/docker/APACHE_DOCUMENT_ROOT
+    ErrorLog /var/www/docker/APACHE_LOG_PATH-error.log
+    CustomLog /var/www/docker/APACHE_LOG_PATH-access.log combined
+</VirtualHost>
+<IfModule mod_ssl.c>
+    <VirtualHost *:443>
+        ServerAdmin APACHE_SERVER_ADMIN
+        ServerName APACHE_SERVER_NAME
+        DocumentRoot /var/www/docker/APACHE_DOCUMENT_ROOT
+        ErrorLog /var/www/docker/APACHE_LOG_PATH-ssl-error.log
+        CustomLog /var/www/docker/APACHE_LOG_PATH-ssl-access.log combined
+        SSLEngine on
+        SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+        BrowserMatch "MSIE [2-6]" \
+                        nokeepalive ssl-unclean-shutdown \
+                        downgrade-1.0 force-response-1.0
+        # MSIE 7 and newer should be able to use keepalive
+        BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+    </VirtualHost>
+</IfModule>
+<IfVersion < 2.4>
+    <Directory /var/www/docker/>
+        Allow from all
+        AllowOverride All
+        Options -Indexes
+    </Directory>
+</IfVersion>
+<IfVersion >= 2.4>
+    <Directory /var/www/docker/>
+        Require all granted
+        AllowOverride All
+        Options -Indexes
+    </Directory>
+</IfVersion>

@@ -23,18 +23,23 @@ class ApiController
 {
     public function decode(Application $app, Request $request, $data)
     {
-        return new JsonResponse(HoplaJsScript::deserialize($data));
+        $script = HoplaJsScript::deserialize($data);
+        $app['monolog']->info('"/api/decode" called by IP: "'.$request->getClientIp().'" to read application hash: "'.$script->getHash().'".');
+        return new JsonResponse($script);
     }
 
     public function encode(Application $app, Request $request)
     {
         $javascript = $request->get('javascript');
         $dependencies = preg_split('/[\s]+/', $request->get('dependencies'));
-        $htmlBody = $request->get('htmlBody');
-        $script = new HoplaJsScript($javascript, $dependencies, $htmlBody);
+        $css = $request->get('css');
+        $body = $request->get('body');
+        $script = new HoplaJsScript($javascript, $dependencies, $css, $body);
+        $hash = $script->getHash();
+        $app['monolog']->info('"/api/encode" called by IP: "'.$request->getClientIp().'" to generate application hash: "'.$hash.'".');
         return new JsonResponse(array(
             'data' => $script->serialize(),
-            'hash' => $script->getHash(),
+            'hash' => $hash,
             'baseUrl' => $request->getSchemeAndHttpHost().$request->getBasePath()));
     }
 

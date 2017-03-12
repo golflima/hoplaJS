@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+# Load container's specific configuration
+. /var/www/docker/setup/docker/docker.conf
+# Configure Apache
+cp /var/www/docker/setup/docker/apache.vhost /etc/apache2/sites-available/site.conf
+configure_vhost /etc/apache2/sites-available/site.conf
+a2dissite 000-default && a2ensite site.conf && a2enmod rewrite && a2enmod ssl
+# Run Composer if necessary
+[[ -e '/var/www/docker/vendor/autoload.php' ]] || composer install --no-interaction
+# Copy .htaccess if necessary
+[[ -e '/var/www/docker/web/.htaccess' ]] || cp /var/www/docker/setup/apache/.htaccess /var/www/docker/web/.htaccess
+# Apache gets grumpy about PID files pre-existing
+rm -f /var/run/apache2/apache2.pid
+# Apache log direcotry
+mkdir -p /var/www/docker/var/logs
+chmod -R 777 /var/www/docker/var/logs
+echo "Started web server on http://localhost:8080 and https://localhost:8443 ..."
+/usr/sbin/apache2ctl -D FOREGROUND

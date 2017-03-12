@@ -1,0 +1,8 @@
+web:
+  build: ./setup/docker
+  command: /var/www/docker/setup/docker/docker.start
+  ports: 
+    - "8080:80"
+    - "8443:443"
+  volumes: 
+    - ./:/var/www/docker
