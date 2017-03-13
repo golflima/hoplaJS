@@ -48,6 +48,8 @@ class ApiController
         // Decode parameters (b64 to prevent web server to think these calls are for files ...)
         $url = base64_decode(str_pad(strtr($url, '-_', '+/'), strlen($url) % 4, '=', STR_PAD_RIGHT));
         $contentType = base64_decode(str_pad(strtr($contentType, '-_', '+/'), strlen($contentType) % 4, '=', STR_PAD_RIGHT));
+        // Log
+        $app['monolog']->info('"/proxy" called by IP: "'.$request->getClientIp().'" to get URL: "'.$url.'" with content-type: "'.$contentType.'".');
         // Get request headers
         $requestHeaders = array_map(function($value) {
             return trim(ucwords(strtolower(is_array($value) ? $value[0] : $value), "()- \t\r\n\f\v"));
