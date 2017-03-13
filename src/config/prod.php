@@ -13,7 +13,9 @@
 
 ini_set('display_errors', 0);
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
-    'monolog.level' => Monolog\Logger::INFO,
-    'monolog.logfile' => __DIR__.'/../../var/logs/hoplajs-prod.log',
     'monolog.name' => 'hoplaJS'
 ));
+$app['monolog']->pushHandler(new Monolog\Handler\RotatingFileHandler(
+    __DIR__.'/../../var/logs/hoplajs-prod.log', 
+    365, // We only keep logs for 1 year, accordingly to French laws
+    Monolog\Logger::INFO));
