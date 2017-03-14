@@ -55690,6 +55690,7 @@ var minify = require('html-minifier').minify;
 $(document).ready(function(){
     // Init 'Generate the HoplaJS URLs for this script !' button ...
     $('.onclick-generate').click(function() {
+        var $button = $(this).button('loading');
         var javascript = $('#javascript').val();
         var dependencies = $('#dependencies').val();
         var css = $('#css').val();
@@ -55739,6 +55740,7 @@ $(document).ready(function(){
                     $('#urlSizeProgress2').css('width', (8000 - 2048) * 100 / 32779 + '%');
                     $('#urlSizeProgress3').css('width', (urlSize - 2048 - 8000) * 100 / 32779 + '%');
                 }
+                $button.button('reset');
             },
             dataType: 'json'
         });
