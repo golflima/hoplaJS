@@ -23,6 +23,12 @@ class SiteController
     public function edit(Application $app, Request $request, $data = null)
     {
         $script = is_null($data) ? new HoplaJsScript() : HoplaJsScript::deserialize($data);
-        return $app['twig']->render('edit.html.twig', array('request' => $request, 'script' => $script, 'dependencies' => implode("\n", $script->getDependencies())));
+        return $app['twig']->render('edit.html.twig', array(
+            'request' => $request,
+            'script' => $script,
+            'dependencies' => implode("\n", $script->getDependencies()),
+            'footer' => file_get_contents(__DIR__.'/../../res/local/footer.html'),
+            'legal' => file_get_contents(__DIR__.'/../../res/local/legal.html')
+            ));
     }
 }

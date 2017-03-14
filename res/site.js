@@ -111,6 +111,12 @@ $(document).ready(function(){
     $('#proxyUrlContentType').change(function() {
         $('#proxyUrlRaw').change();
     });
+
+    // Init tooltips
+    $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+        trigger: 'click hover focus'
+    });
 });
 
 function base64_encode(text) {

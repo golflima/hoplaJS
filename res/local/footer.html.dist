@@ -1,0 +1,2 @@
+Place in this file everything you want to display at the footer of the main/edit page of HoplaJS.
+When its OK, rename it to 'res/local/footer.html' (remove the '.dist' extension).
