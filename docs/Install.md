@@ -48,7 +48,7 @@ Then, run these commands:
 3. `composer install --no-dev` for production, `composer install` for contributing/debugging
   * To use composer on [OVH](https://www.ovh.com), you have to do this first:
     * `alias php='/usr/local/php7.0/bin/php'`
-    * `curl -sS https://getcomposer.org/installer | php`
+    * `curl -sSL https://getcomposer.org/installer | php`
 
 *hoplaJS* can be started from Composer (not for production) with:
 

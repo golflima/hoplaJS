@@ -17,11 +17,14 @@ It can be used to:
 * [https://hoplajs.golflima.net](https://hoplajs.golflima.net)
 
 
+
 ## Documentation
 
-* [Installation](Install.md)
+* [User Manual](Usage.md)
 * [Examples of use](Examples.md)
+* [Installation](Install.md)
 * [Contribute or debug](Contribute.md)
+
 
 
 __________________________________________________
