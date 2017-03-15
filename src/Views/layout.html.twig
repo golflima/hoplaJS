@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+{# 
+    This file is part of hoplaJS.
+    See: <https://github.com/golflima/hoplaJS>.
+    Copyright (C) 2017 Jérémy Walther <jeremy.walther@golflima.net>.
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+    Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
+#}<!DOCTYPE html>
 <!--
      _                 _           _ ____  
     | |__   ___  _ __ | | __ _    | / ___| 
@@ -18,9 +25,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="generator" content="HoplaJS, v{{ app.hoplaJS_version }}" />
         <title>hoplaJS - {% block title '' %}</title>
+        <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon_96.png') }}" sizes="96x96" />
+        <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon_32.png') }}" sizes="32x32" />
+        <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon_16.png') }}" sizes="16x16" />
 {% block head %}{% endblock %}
     </head>
     <body>
 {% block body %}{% endblock %}
+{{ footer | raw }}
     </body>
 </html>

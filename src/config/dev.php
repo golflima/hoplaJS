@@ -11,7 +11,7 @@
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
 
-//Symfony\Component\Debug\Debug::enable(); //Commented due to a bug in Synfony Twig Extensions ... 
+//Symfony\Component\Debug\Debug::enable(); //Commented due to a bug in Symfony Twig Extensions ... 
 $app['debug'] = true;
 
 $app->register(new Silex\Provider\MonologServiceProvider(), array(

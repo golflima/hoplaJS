@@ -1,4 +1,4 @@
-# ![](web/assets/images/favicon_32.png) hoplaJS
+# ![](../web/assets/images/favicon_32.png) hoplaJS
 
 > A PHP web application running JavaScript code stored in URLs on client-side
 
@@ -16,7 +16,14 @@ It can be used to:
 * [http://hoplajs.golflima.net](http://hoplajs.golflima.net)
 * [https://hoplajs.golflima.net](https://hoplajs.golflima.net)
 
-[Documention for installing, contributing, using and more is available here.](docs/README.md)
+
+
+## Documentation
+
+* [User Manual](Usage.md)
+* [Examples of use](Examples.md)
+* [Installation](Install.md)
+* [Contribute or debug](Contribute.md)
 
 
 
@@ -24,7 +31,7 @@ __________________________________________________
 
 ## Licence terms
 
-*hoplaJS* is published under the terms of [GNU Affero General Public License v3](https://www.gnu.org/licenses/agpl-3.0.html), see the [LICENSE](LICENSE) file.
+*hoplaJS* is published under the terms of [GNU Affero General Public License v3](https://www.gnu.org/licenses/agpl-3.0.html), see the [LICENSE](../LICENSE) file.
 
 
 

@@ -1,5 +1,7 @@
 /composer.phar
 /node_modules/*
+/res/local/*
+!/res/local/*.dist
 /res/vendor/*
 #/res/vendor/**/*.*
 #!/res/vendor/**/dist/**

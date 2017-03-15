@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var cleanCss = require('gulp-clean-css');
 var concat = require('gulp-concat');
+var imageResize = require('gulp-image-resize');
 var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
@@ -51,4 +52,20 @@ gulp.task('fonts', function() {
         .pipe(gulp.dest(assets + '/fonts'));
 });
 
-gulp.task('default', ['css', 'js', 'fonts']);
+gulp.task('favicons', function() {  
+    return gulp.src('./res/logo.png')
+        .pipe(rename('favicon_96.png'))
+        .pipe(imageResize({ width : 96,
+            imageMagick: true, filter: 'Catrom'}))
+        .pipe(gulp.dest(assets + '/images'))
+        .pipe(rename('favicon_32.png'))
+        .pipe(imageResize({ width : 32,
+            imageMagick: true, filter: 'Catrom'}))
+        .pipe(gulp.dest(assets + '/images'))
+        .pipe(rename('favicon_16.png'))
+        .pipe(imageResize({ width : 16,
+            imageMagick: true, filter: 'Catrom'}))
+        .pipe(gulp.dest(assets + '/images'));
+});
+
+gulp.task('default', ['css', 'js', 'fonts', 'favicons']);

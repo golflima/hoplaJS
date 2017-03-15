@@ -18,7 +18,7 @@ defined('APP_ENV') || define('APP_ENV', (getenv('APP_ENV') ? getenv('APP_ENV') :
 require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
-$app['hoplaJS_version'] = json_decode(file_get_contents(__DIR__.'/../composer.json'))->version;
+$app['hoplaJS_version'] = file_get_contents(__DIR__.'/../VERSION');
 $app->register(new Silex\Provider\AssetServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     "twig.path" => __DIR__.'/Views',
