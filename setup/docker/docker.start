@@ -1,19 +1,22 @@
 #!/bin/bash
 set -e
 # Load container's specific configuration
-. /var/www/docker/setup/docker/docker.conf
+. setup/docker/docker.conf
+# Configure PHP
+sudo cp setup/docker/php.ini /etc/php/7.0/apache2/php.ini
+sudo cp setup/docker/php.ini /etc/php/7.0/cli/php.ini
 # Configure Apache
-cp /var/www/docker/setup/docker/apache.vhost /etc/apache2/sites-available/site.conf
+sudo cp setup/docker/apache.vhost /etc/apache2/sites-available/site.conf
 configure_vhost /etc/apache2/sites-available/site.conf
-a2dissite 000-default && a2ensite site.conf && a2enmod rewrite && a2enmod ssl
+sudo a2dissite 000-default && sudo a2ensite site.conf && sudo a2enmod rewrite && sudo a2enmod ssl
 # Run Composer if necessary
-[[ -e '/var/www/docker/vendor/autoload.php' ]] || composer install --no-interaction
+[[ -e 'vendor/autoload.php' ]] || composer install --no-interaction
+# Install npm packages if necessary
+[[ -f 'node_modules' ]] || npm install
 # Copy .htaccess if necessary
-[[ -e '/var/www/docker/web/.htaccess' ]] || cp /var/www/docker/setup/apache/.htaccess /var/www/docker/web/.htaccess
+[[ -e 'web/.htaccess' ]] || cp setup/apache/.htaccess web/.htaccess
 # Apache gets grumpy about PID files pre-existing
-rm -f /var/run/apache2/apache2.pid
-# Apache log direcotry
-mkdir -p /var/www/docker/var/logs
-chmod -R 777 /var/www/docker/var/logs
+sudo rm -f /var/run/apache2/apache2.pid
+# Start Apache
 echo "Started web server on http://localhost:8080 and https://localhost:8443 ..."
-/usr/sbin/apache2ctl -D FOREGROUND
+sudo /usr/sbin/apache2ctl -D FOREGROUND

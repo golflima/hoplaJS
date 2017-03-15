@@ -43,6 +43,7 @@ class RunController
         return $app['twig']->render('run.html.twig', array(
             'request' => $request,
             'data' => $data,
-            'script' => $script));
+            'script' => $script,
+            'footer' => file_get_contents(__DIR__.'/../../res/local/footer.html')));
     }
 }

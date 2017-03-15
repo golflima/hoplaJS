@@ -1,3 +1,3 @@
 Place in this file the mandatory information needed in your country for public website.
 When its OK, rename it to 'res/local/legal.html' (remove the '.dist' extension).
-This text will so appears on the link 'Legal' at the bottom of the main/edit page, and in comments of raw/run pages.
+This HTML text will so appears on the link 'Legal' at the bottom of the main/edit page, and in comments of raw/run pages.

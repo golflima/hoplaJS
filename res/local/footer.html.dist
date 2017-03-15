@@ -1,2 +1,3 @@
-Place in this file everything you want to display at the footer of the main/edit page of HoplaJS.
+Place in this file the additional HTML content you want to include at the footer of HoplaJS pages.
 When its OK, rename it to 'res/local/footer.html' (remove the '.dist' extension).
+This HTML content will be included before the closing </body> tag of main/edit/run pages.
