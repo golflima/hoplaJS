@@ -10,6 +10,7 @@ It was tested on both Windows and Linux, and should works on OS X too.
 1. `git clone https://github.com/golflima/hoplaJS.git`
 2. `cd hoplaJS`
 3. `docker-compose build`
+   * For Windows users only, run `docker-compose run web bash -c 'dos2unix setup/docker/*'`
 4. `docker-compose up -d`
 
 *hoplaJS* will be accessible from [HTTP](http://localhost:8080) or [HTTPS](https://localhost:8443) when the docker is running.
