@@ -13,9 +13,11 @@ set -e
 # Configure PHP
 sudo cp setup/docker/php.ini /etc/php/7.0/apache2/php.ini
 sudo cp setup/docker/php.ini /etc/php/7.0/cli/php.ini
+configure_file /etc/php/7.0/apache2/php.ini
+configure_file /etc/php/7.0/cli/php.ini
 # Configure Apache
 sudo cp setup/docker/apache.vhost /etc/apache2/sites-available/site.conf
-configure_vhost /etc/apache2/sites-available/site.conf
+configure_file /etc/apache2/sites-available/site.conf
 sudo a2dissite 000-default && sudo a2ensite site.conf && sudo a2enmod rewrite && sudo a2enmod ssl
 # Run Composer if necessary
 [[ -e 'vendor/autoload.php' ]] || composer install --no-interaction

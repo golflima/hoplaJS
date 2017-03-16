@@ -21,3 +21,11 @@ $app->get('/edit', 'HoplaJs\\Controllers\\SiteController::edit');
 $app->get('/edit/{data}', 'HoplaJs\\Controllers\\SiteController::edit');
 $app->get('/raw/{data}', 'HoplaJs\\Controllers\\RunController::raw');
 $app->get('/run/{data}', 'HoplaJs\\Controllers\\RunController::run');
+
+$app->error(function (\Exception $e, Symfony\Component\HttpFoundation\Request $request, $code) use ($app) {
+    return $app['twig']->render('error.html.twig', array(
+        'request' => $request,
+        'e' => $e,
+        'code' => $code,
+        'footer' => file_get_contents(__DIR__.'/../../res/local/footer.html')));
+});

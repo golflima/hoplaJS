@@ -1,0 +1,61 @@
+{# 
+    This file is part of hoplaJS.
+    See: <https://github.com/golflima/hoplaJS>.
+    Copyright (C) 2017 Jérémy Walther <jeremy.walther@golflima.net>.
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+    Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
+#}
+
+{% extends "layout.html.twig" %}
+
+{% block title %}Error{% endblock %}
+
+{% block head %}
+        <link rel="stylesheet" href="{{ app.debug ? asset('assets/css/site.css') : asset('assets/css/site.min.css') }}" />
+{% endblock %}
+
+{% block body %}
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ request.schemeAndHttpHost }}{{ request.basePath }}">HoplaJS</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://github.com/golflima/hoplaJS" target="_blank">Get HoplaJS <span class="glyphicon glyphicon-new-window"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container theme-showcase" role="main">
+            <div class="page-header">
+                <h1>
+                    <a id="new-edit"></a>HoplaJS
+                    <small>Write JavaScript and store it in URL. Then, share it and run your scripts everywhere !</small>
+                </h1>
+            </div>
+            <div class="panel panel-danger">
+                <div class="panel-heading"><h2><span class="glyphicon glyphicon-warning-sign"></span> Oops, an unexpected error occurred ... <span class="glyphicon glyphicon-warning-sign"></span></h2></div>
+                <div class="panel-body">
+                    <p class="lead">You requested an HoplaJS URL, but something went wrong when processing it.</p>
+                    <ul>
+                        <li><span class="glyphicon glyphicon-info-sign"></span> Error HTTP code was: <code>{{ code }}</code></li>
+                        <li><a href="javascript:location.reload();"><span class="glyphicon glyphicon-repeat"></span> Try to reload the page</a></li>
+                        <li><span class="glyphicon glyphicon-question-sign"></span> Did you know HoplaJS URLs are case-sensitive? <code>/run/AbC</code> is not the same than <code>/run/abc</code></li>
+                        <li><a href="https://github.com/golflima/hoplaJS/issues" target="_blank"><span class="glyphicon glyphicon-new-window"></span> If you believe this error is due to a bug, please report it</a></li>
+                    </ul>
+                    {% if app.debug %}
+                        <p><span class="glyphicon glyphicon-info-sign"></span> Error reported was: <code>{{ e.message }}</code>, in file: <code>{{ e.file|split('/')|last }}</code>, at line: <code>{{ e.line }}</code></p>
+                        <pre>{{ e }}</pre>
+                    {% endif %}
+                </div>
+            </div>
+        <script type="text/javascript" src="{{ app.debug ? asset('assets/js/site.js') : asset('assets/js/site.min.js') }}"></script>
+{% endblock %}
