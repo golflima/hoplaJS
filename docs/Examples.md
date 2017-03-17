@@ -1,4 +1,4 @@
-# Examples of HoplaJS applications
+# ![](../web/assets/images/favicon_32.png) hoplaJS - Examples of applications
 
 All links below will display the *Edit* page of desired example, from [hoplajs.golflima.net](https://hoplajs.golflima.net).
 Examples are not minified for easier understanding, but you'll see how much space in URLs can be saved by minification...

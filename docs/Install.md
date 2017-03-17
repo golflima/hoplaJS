@@ -1,4 +1,4 @@
-# Install hoplaJS
+# ![](../web/assets/images/favicon_32.png) hoplaJS - Installation Manual
 
 
 
