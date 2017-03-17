@@ -9,7 +9,7 @@
 
 {% extends "layout.html.twig" %}
 
-{% block title %}Error{% endblock %}
+{% block title %}Error: {{ code }}{% endblock %}
 
 {% block head %}
         <link rel="stylesheet" href="{{ app.debug ? asset('assets/css/site.css') : asset('assets/css/site.min.css') }}" />
@@ -48,11 +48,15 @@
                     <ul>
                         <li><span class="glyphicon glyphicon-info-sign"></span> Error HTTP code was: <code>{{ code }}</code></li>
                         <li><a href="javascript:location.reload();"><span class="glyphicon glyphicon-repeat"></span> Try to reload the page</a></li>
+                        <li><a href="{{ request.schemeAndHttpHost }}{{ request.basePath }}"><span class="glyphicon glyphicon-home"></span> Go to HoplaJS homepage</a></li>
+                        <li><a href="https://github.com/golflima/hoplaJS/tree/master/docs"><span class="glyphicon glyphicon-book"></span> Go to HoplaJS documentation</a></li>
                         <li><span class="glyphicon glyphicon-question-sign"></span> Did you know HoplaJS URLs are case-sensitive? <code>/run/AbC</code> is not the same than <code>/run/abc</code></li>
-                        <li><a href="https://github.com/golflima/hoplaJS/issues" target="_blank"><span class="glyphicon glyphicon-new-window"></span> If you believe this error is due to a bug, please report it</a></li>
+                        <li><span class="glyphicon glyphicon-question-sign"></span> Are you sure you copied the whole HoplaJS URL in your browser? If a part of the URL is missing, it won't work</li>
+                        <li><a href="https://github.com/golflima/hoplaJS/issues" target="_blank"><span class="glyphicon glyphicon-comment"></span> If you believe this error is due to a bug in HoplaJS, please report it</a></li>
+                        <li><span class="glyphicon glyphicon-remove-sign"></span> Technical error code: <code>{{ hash }}</code></li>
                     </ul>
                     {% if app.debug %}
-                        <p><span class="glyphicon glyphicon-info-sign"></span> Error reported was: <code>{{ e.message }}</code>, in file: <code>{{ e.file|split('/')|last }}</code>, at line: <code>{{ e.line }}</code></p>
+                        <p><span class="glyphicon glyphicon-remove-sign"></span> Error reported was: <code>{{ e.message }}</code>, in file: <code>{{ e.file|split('/')|last }}</code>, at line: <code>{{ e.line }}</code></p>
                         <pre>{{ e }}</pre>
                     {% endif %}
                 </div>
