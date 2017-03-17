@@ -58,3 +58,33 @@ Then, run these commands:
 * Development mode, on Windows: `composer cmd-dev`
 
 Then, browse hoplaJS over [HTTP](http://localhost:8080) or [HTTPS](https://localhost:8443)
+
+
+
+## Configure HoplaJS
+
+* Running mode is determined by environment variable `APP_ENV`, which can takes following values: `dev` (development/debug) or `prod` (production, default mode)
+* Legal information, such as details on hosting and website ownership, can be defined in file `res/local/legal.html` (see `res/local/legal.html.dist` for more information)
+* Footer HTML code, such as tracking code, can be defined in file `res/local/footer.html` (see `res/local/footer.html.dist` for more information)
+
+
+
+## Debug and advanced settings
+
+Please see: [contribute and debug](Contribute.md).
+
+
+
+## Update HoplaJS
+
+1. `git pull`
+2. `composer install --no-dev` for production, `composer install` for contributing/debugging
+3. `rm -rf var/cache/twig/`
+
+For a better stability of your HoplaJS instance, we recommend you always use *git tags* when deploying the source code.
+
+
+
+## HoplaJS logs
+
+Logs are stored inside `var/logs/`.
