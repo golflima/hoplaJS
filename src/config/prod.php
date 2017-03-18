@@ -18,8 +18,8 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 ));
 $app['monolog']->pushHandler(new Monolog\Handler\RotatingFileHandler(
     __DIR__.'/../../var/logs/silex-prod.log', 
-    365, // We only keep logs for 1 year, accordingly to French laws
-    Monolog\Logger::WARNING));
+    7, // We only keep logs for 1 week, these ones are only for debug
+    Monolog\Logger::INFO));
 
 $app['monolog.hoplajs'] = function ($app) {
     $log = new $app['monolog.logger.class']('hoplaJS');
