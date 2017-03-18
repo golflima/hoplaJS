@@ -53,10 +53,11 @@
                         <li><span class="glyphicon glyphicon-question-sign"></span> Did you know HoplaJS URLs are case-sensitive? <code>/run/AbC</code> is not the same than <code>/run/abc</code></li>
                         <li><span class="glyphicon glyphicon-question-sign"></span> Are you sure you copied the whole HoplaJS URL in your browser? If a part of the URL is missing, it won't work</li>
                         <li><a href="https://github.com/golflima/hoplaJS/issues" target="_blank"><span class="glyphicon glyphicon-comment"></span> If you believe this error is due to a bug in HoplaJS, please report it</a></li>
-                        <li><span class="glyphicon glyphicon-remove-sign"></span> Technical error code: <code>{{ hash }}</code></li>
+                        <li><span class="glyphicon glyphicon-cog"></span> Technical error code: <code>{{ hash }}</code></li>
+                        <li><span class="glyphicon glyphicon-cog"></span> HoplaJS version: <code>{{ app.hoplaJS_version }}</code></li>
                     </ul>
                     {% if app.debug %}
-                        <p><span class="glyphicon glyphicon-remove-sign"></span> Error reported was: <code>{{ e.message }}</code>, in file: <code>{{ e.file|split('/')|last }}</code>, at line: <code>{{ e.line }}</code></p>
+                        <p><span class="glyphicon glyphicon-cog"></span> Error reported was: <code>{{ e.message }}</code>, in file: <code>{{ e.file|split('/')|last }}</code>, at line: <code>{{ e.line }}</code></p>
                         <pre>{{ e }}</pre>
                     {% endif %}
                 </div>
