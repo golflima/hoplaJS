@@ -24,7 +24,7 @@ class ApiController
     public function decode(Application $app, Request $request, $data)
     {
         $script = HoplaJsScript::deserialize($data);
-        $app['monolog']->info('"/api/decode" called by IP: "'.$request->getClientIp().'" to read application hash: "'.$script->getHash().'".');
+        $app['monolog.hoplajs']->info('"/api/decode" called by IP: "'.$request->getClientIp().'" to read application hash: "'.$script->getHash().'".');
         return new JsonResponse($script);
     }
 
@@ -36,7 +36,7 @@ class ApiController
         $body = $request->get('body');
         $script = new HoplaJsScript($javascript, $dependencies, $css, $body);
         $hash = $script->getHash();
-        $app['monolog']->info('"/api/encode" called by IP: "'.$request->getClientIp().'" to generate application hash: "'.$hash.'".');
+        $app['monolog.hoplajs']->info('"/api/encode" called by IP: "'.$request->getClientIp().'" to generate application hash: "'.$hash.'".');
         return new JsonResponse(array(
             'data' => $script->serialize(),
             'hash' => $hash,
@@ -49,7 +49,7 @@ class ApiController
         $url = base64_decode(str_pad(strtr($url, '-_', '+/'), strlen($url) % 4, '=', STR_PAD_RIGHT));
         $contentType = base64_decode(str_pad(strtr($contentType, '-_', '+/'), strlen($contentType) % 4, '=', STR_PAD_RIGHT));
         // Log
-        $app['monolog']->info('"/proxy" called by IP: "'.$request->getClientIp().'" to get URL: "'.$url.'" with content-type: "'.$contentType.'".');
+        $app['monolog.hoplajs']->info('"/proxy" called by IP: "'.$request->getClientIp().'" to get URL: "'.$url.'" with content-type: "'.$contentType.'".');
         // Get request headers
         $requestHeaders = array_map(function($value) {
             return trim(ucwords(strtolower(is_array($value) ? $value[0] : $value), "()- \t\r\n\f\v"));

@@ -15,7 +15,8 @@ gulp.task('css', function() {
             './res/vendor/bootstrap/dist/css/bootstrap-theme.css',
             './res/site.css',
         ])
-        .pipe(sourcemaps.init())
+        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.write('/dev/null', {addComment: false}))
         .pipe(concat('site.css'))
         .pipe(gulp.dest(assets + '/css'))
         .pipe(rename('site.min.css'))

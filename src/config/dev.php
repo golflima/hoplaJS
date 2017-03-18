@@ -16,9 +16,16 @@ $app['debug'] = true;
 
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.level' => Monolog\Logger::DEBUG,
-    'monolog.logfile' => __DIR__.'/../../var/logs/hoplajs-dev.log',
-    'monolog.name' => 'hoplaJS'
+    'monolog.logfile' => __DIR__.'/../../var/logs/silex-dev.log',
+    'monolog.name' => 'Silex'
 ));
+
+$app['monolog.hoplajs'] = function ($app) {
+    $log = new $app['monolog.logger.class']('hoplaJS');
+    $handler = new Monolog\Handler\StreamHandler(__DIR__.'/../../var/logs/hoplajs-dev.log', Monolog\Logger::DEBUG);
+    $log->pushHandler($handler);
+    return $log;
+};
 
 $app->register(new Silex\Provider\HttpFragmentServiceProvider());
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());

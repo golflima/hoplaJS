@@ -24,7 +24,7 @@ $app->get('/run/{data}', 'HoplaJs\\Controllers\\RunController::run');
 
 $app->error(function (\Exception $e, Symfony\Component\HttpFoundation\Request $request, $code) use ($app) {
     $hash = sha1($request.$e.microtime());
-    $app['monolog']->error("Error page displayed.", array(
+    $app['monolog.hoplajs']->error("Error page displayed.", array(
         'hash ' => $hash,
         'request' => $request,
         'exception' => $e,
@@ -34,5 +34,5 @@ $app->error(function (\Exception $e, Symfony\Component\HttpFoundation\Request $r
         'e' => $e,
         'code' => $code,
         'hash' => $hash,
-        'footer' => file_get_contents(__DIR__.'/../../res/local/footer.html')));
+        'footer' => file_get_contents(__DIR__.'/../res/local/footer.html')));
 });

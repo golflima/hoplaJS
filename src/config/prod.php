@@ -12,10 +12,21 @@
  */
 
 ini_set('display_errors', 0);
+
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.name' => 'hoplaJS'
 ));
 $app['monolog']->pushHandler(new Monolog\Handler\RotatingFileHandler(
     __DIR__.'/../../var/logs/hoplajs-prod.log', 
     365, // We only keep logs for 1 year, accordingly to French laws
-    Monolog\Logger::INFO));
+    Monolog\Logger::WARNING));
+
+$app['monolog.hoplajs'] = function ($app) {
+    $log = new $app['monolog.logger.class']('hoplaJS');
+    $handler = new Monolog\Handler\RotatingFileHandler(
+        __DIR__.'/../../var/logs/hoplajs-prod.log', 
+        365, // We only keep logs for 1 year, accordingly to French laws
+        Monolog\Logger::INFO);
+    $log->pushHandler($handler);
+    return $log;
+};
