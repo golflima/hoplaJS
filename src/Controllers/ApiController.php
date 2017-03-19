@@ -19,15 +19,38 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Controller for routes /api/*.
+ * @author      Jérémy Walther <jeremy.walther@golflima.net>
+ * @copyright   2017 Jérémy Walther
+ * @license     https://www.gnu.org/licenses/agpl-3.0 AGPL-3.0
+ */
 class ApiController
 {
+    /**
+     * Handler for route /api/decode/{data}.
+     * @param   Application     $app        Silex hoplaJS application.
+     * @param   Request         $request    Silex current request.
+     * @param   string          $data       Serialized HoplaJsScript instance.
+     * @return  JsonResponse    Response in JSON format.
+     * @throws  \Exception      Error when deserializing the HoplaJsScript instance.
+     */
     public function decode(Application $app, Request $request, $data)
     {
         $script = HoplaJsScript::deserialize($data);
-        $app['monolog']->info('"/api/decode" called by IP: "'.$request->getClientIp().'" to read application hash: "'.$script->getHash().'".');
+        $app['monolog.hoplajs']->info('"/api/decode" called.', array(
+            'ip' => $request->getClientIp(),
+            'hash' => $script->getHash()));
         return new JsonResponse($script);
     }
 
+    /**
+     * Handler for route /api/encode.
+     * @param   Application     $app        Silex hoplaJS application.
+     * @param   Request         $request    Silex current request.
+     * @return  JsonResponse    Response in JSON format.
+     * @throws  \Exception      Error when serializing the HoplaJsScript instance.
+     */
     public function encode(Application $app, Request $request)
     {
         $javascript = $request->get('javascript');
@@ -36,22 +59,35 @@ class ApiController
         $body = $request->get('body');
         $script = new HoplaJsScript($javascript, $dependencies, $css, $body);
         $hash = $script->getHash();
-        $app['monolog']->info('"/api/encode" called by IP: "'.$request->getClientIp().'" to generate application hash: "'.$hash.'".');
+        $app['monolog.hoplajs']->info('"/api/encode" called.', array(
+            'ip' => $request->getClientIp(),
+            'hash' => $script->getHash()));
         return new JsonResponse(array(
             'data' => $script->serialize(),
             'hash' => $hash,
             'baseUrl' => $request->getSchemeAndHttpHost().$request->getBasePath()));
     }
 
+    /**
+     * Handler for route /api/proxy/{url}/{contentType}.
+     * @param   Application     $app            Silex hoplaJS application.
+     * @param   Request         $request        Silex current request.
+     * @param   string          $url            The URL of the resource to get.
+     * @param   string          $contentType    The Content-Type of the resource to enforce.
+     * @return  JsonResponse    Response in JSON format.
+     */
     public function proxy(Application $app, Request $request, $url, $contentType = "")
     {
         // Decode parameters (b64 to prevent web server to think these calls are for files ...)
         $url = base64_decode(str_pad(strtr($url, '-_', '+/'), strlen($url) % 4, '=', STR_PAD_RIGHT));
         $contentType = base64_decode(str_pad(strtr($contentType, '-_', '+/'), strlen($contentType) % 4, '=', STR_PAD_RIGHT));
         // Log
-        $app['monolog']->info('"/proxy" called by IP: "'.$request->getClientIp().'" to get URL: "'.$url.'" with content-type: "'.$contentType.'".');
+        $app['monolog.hoplajs']->info('"/proxy" called.', array(
+            'ip' => $request->getClientIp(),
+            'url' => $url,
+            'contentType' => $contentType));
         // Get request headers
-        $requestHeaders = array_map(function($value) {
+        $requestHeaders = array_map(function ($value) {
             return trim(ucwords(strtolower(is_array($value) ? $value[0] : $value), "()- \t\r\n\f\v"));
         }, $request->headers->all());
         // Filter request headers
@@ -73,7 +109,7 @@ class ApiController
                 return max($downloadSize, $downloaded) > (10 * 1024**2);
         }); // Disallow the download of files bigger than 10 Mio
         $response = curl_exec($ch);
-        if($response === FALSE) {
+        if ($response === FALSE) {
             // Handle errors
             $response = new JsonResponse(array(
                 'cUrlErrorCode' => curl_errno($ch),

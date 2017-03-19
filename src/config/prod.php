@@ -11,11 +11,25 @@
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
 
+// Ensure PHP is not showing any errors
 ini_set('display_errors', 0);
+
+// Silex logs
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
-    'monolog.name' => 'hoplaJS'
+    'monolog.name' => 'Silex'
 ));
 $app['monolog']->pushHandler(new Monolog\Handler\RotatingFileHandler(
-    __DIR__.'/../../var/logs/hoplajs-prod.log', 
-    365, // We only keep logs for 1 year, accordingly to French laws
+    __DIR__.'/../../var/logs/silex-prod.log', 
+    7, // We only keep logs for 1 week, these ones are only for debug
     Monolog\Logger::INFO));
+
+// hoplaJS logs
+$app['monolog.hoplajs'] = function ($app) {
+    $log = new $app['monolog.logger.class']('hoplaJS');
+    $handler = new Monolog\Handler\RotatingFileHandler(
+        __DIR__.'/../../var/logs/hoplajs-prod.log', 
+        365, // We only keep logs for 1 year, accordingly to French laws
+        Monolog\Logger::INFO);
+    $log->pushHandler($handler);
+    return $log;
+};
