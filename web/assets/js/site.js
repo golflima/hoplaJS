@@ -55779,7 +55779,7 @@ var uglifyJsDefaultOptions = {
 };
 
 function base64_encode(text) {
-    return window.btoa(unescape(encodeURIComponent(text))).replace('+', '-').replace('/', '_').replace('=', '');
+    return window.btoa(unescape(encodeURIComponent(text))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 }
 
 function uglifyJs(input, options) {

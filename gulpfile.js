@@ -53,8 +53,9 @@ gulp.task('fonts', function() {
         .pipe(gulp.dest(assets + '/fonts'));
 });
 
-gulp.task('favicons', function() {  
+gulp.task('images', function() {  
     return gulp.src('./res/logo.png')
+        .pipe(gulp.dest(assets + '/images'))
         .pipe(rename('favicon_96.png'))
         .pipe(imageResize({ width : 96,
             imageMagick: true, filter: 'Catrom'}))
@@ -69,4 +70,4 @@ gulp.task('favicons', function() {
         .pipe(gulp.dest(assets + '/images'));
 });
 
-gulp.task('default', ['css', 'js', 'fonts', 'favicons']);
+gulp.task('default', ['css', 'js', 'fonts', 'images']);

@@ -24,8 +24,11 @@ Note: *this document is useful if you only want to debug it too.*
 ## Tools
 
 * To update back-end dependences, run `composer update` you may need to edit the file `composer.json`)
+  * With docker: `docker-compose run web composer update`
 * To update front-end dependences, run `bower update` (you may need to edit the file `bower.json`)
+  * With docker: `docker-compose run web bower update`
 * To bundle all front-end resources, run `gulp`
+  * With docker: `docker-compose run web gulp`
 
 To run one of the above commands in the docker container provided, when it is running:
 `docker-compose exec web -t /bin/bash`

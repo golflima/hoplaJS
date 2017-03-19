@@ -16,6 +16,8 @@ It can be used to:
 * [http://hoplajs.golflima.net](http://hoplajs.golflima.net)
 * [https://hoplajs.golflima.net](https://hoplajs.golflima.net)
 
+Note: *hoplaJS* can be written with both a lower or an upper case H, meaning both *HoplaJS* and *hoplaJS* are valid. *Hopla* is an [Alsatian](https://en.wikipedia.org/wiki/Alsatian_dialect) word meaning *hurry up*.
+
 
 
 ## Documentation

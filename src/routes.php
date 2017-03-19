@@ -11,6 +11,7 @@
  * Otherwise, see: <https://www.gnu.org/licenses/agpl-3.0>.
  */
 
+// Declare routes
 $app->get('/', 'HoplaJs\\Controllers\\SiteController::edit');
 $app->post('/api/decode', 'HoplaJs\\Controllers\\ApiController::decode');
 $app->get('/api/decode/{data}', 'HoplaJs\\Controllers\\ApiController::decode');
@@ -22,13 +23,16 @@ $app->get('/edit/{data}', 'HoplaJs\\Controllers\\SiteController::edit');
 $app->get('/raw/{data}', 'HoplaJs\\Controllers\\RunController::raw');
 $app->get('/run/{data}', 'HoplaJs\\Controllers\\RunController::run');
 
+// Handle uncatched exceptions
 $app->error(function (\Exception $e, Symfony\Component\HttpFoundation\Request $request, $code) use ($app) {
     $hash = sha1($request.$e.microtime());
+    // Log the error with a unique hash to be searchable in the log files
     $app['monolog.hoplajs']->error("Error page displayed.", array(
         'hash ' => $hash,
         'request' => $request,
         'exception' => $e,
         'code' => $code));
+    // Display the error page to the user, with its unique hash
     return $app['twig']->render('error.html.twig', array(
         'request' => $request,
         'e' => $e,
